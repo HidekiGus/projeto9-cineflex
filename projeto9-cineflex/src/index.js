@@ -1,5 +1,7 @@
 import ReactDOM from "react-dom";
-import React from "react";
+import React, { Link, useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import axios from "axios";
 
 import "./styles/reset.css";
 import "./styles/style.css";
@@ -8,34 +10,23 @@ import foto1 from "./img/foto1.png";
 import foto2 from "./img/foto2.png";
 
 import Filmes from "./components/Filmes";
+import Horarios from "./components/Horarios";
+
+
+
 
 function App() {
 
-    const tabela = [
-        [foto1],
-        [foto2],
-        [foto2],
-        [foto1],
-        [foto2],
-        [foto1],
-        [foto1],
-        [foto1],
-        [foto2],
-        [foto2],
-        [foto1],
-        [foto2],
-        [foto1],
-        [foto1]
-    ]
+    const [ids, setIds] = useState([]);
+
 
     return (
-        <>
-            <div className="home">
-                <div className="barra-topo">CINEFLEX</div>
-                <div className="titulo-secao">Selecione o filme</div>
-                <Filmes fotos={tabela} />
-            </div>
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Filmes />} />
+                <Route path="/sessoes/:idSessoes" element={<Horarios />} />
+            </Routes>
+        </BrowserRouter>
     );
 
 }
