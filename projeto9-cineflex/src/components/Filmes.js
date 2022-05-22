@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
-import React, { Link, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Filmes() {
@@ -20,26 +20,31 @@ export default function Filmes() {
         console.log("clicado")
     }
 
+    const { idSessoes } = useParams();
 
     return (
         <div className="home">
             <div className="barra-topo">CINEFLEX</div>
             <div className="titulo-secao">Selecione o filme</div>
             <div className="filmes">
-                {items.map((filme) =>(
-                    <Filme foto={filme.posterURL} alt="" />
+                {items.length === 0 ? "": items.map((filme) =>(
+                    <Filme foto={filme.posterURL} id={filme.id} alt="" />
                 ))}
             </div>
         </div>
     );
 }
 
-function Filme({ foto }) {
+function Filme({ foto, id }) {
     console.log("Repetido")
     return (
-        <div className="filme">
-            <img src={foto} />
-        </div>
+        <>
+        <Link to={`/sessoes/${id}`}>
+            <div className="filme">
+                <img src={foto} />
+            </div>
+        </Link>
+        </>
     );
 }
 

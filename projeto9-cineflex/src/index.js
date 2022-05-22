@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
-import React, { Link, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 
 import "./styles/reset.css";
@@ -17,7 +17,6 @@ import Horarios from "./components/Horarios";
 
 function App() {
 
-    const [ids, setIds] = useState([]);
 
 
     return (
