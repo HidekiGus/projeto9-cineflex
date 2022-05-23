@@ -1,6 +1,5 @@
-import ReactDOM from "react-dom";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -16,12 +15,6 @@ export default function Filmes() {
 
     }, []);
 
-    function enviar() {
-        console.log("clicado")
-    }
-
-    const { idSessoes } = useParams();
-
     return (
         <div className="home">
             <div className="barra-topo">CINEFLEX</div>
@@ -36,7 +29,6 @@ export default function Filmes() {
 }
 
 function Filme({ foto, id }) {
-    console.log("Repetido")
     return (
         <>
         <Link to={`/sessoes/${id}`}>
@@ -57,13 +49,13 @@ const ContainerFilmes = styled.div`
 `;
 
 const Foto = styled.img`
-    width: 41%;
+    width: 42%;
     height: fit-content;
 
     border: 8px solid #FFFFFF;
     border-radius: 3px;
 
-    margin: 8px;
+    margin: 2vw;
 
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 `;

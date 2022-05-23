@@ -1,97 +1,53 @@
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+
 export default function Horarios() {
+
+    const [ sessoes, setSessoes ] = useState([]);
+
+    const { idSessoes } = useParams();
+
+    useEffect(() => {
+        const requisicao = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idSessoes}/showtimes`);
+
+        requisicao.then(resposta => setSessoes(resposta.data.days));
+    }, []);
+
+    console.log(sessoes)
+
     return (
         <div className="horarios">
             <div className="barra-topo">CINEFLEX</div>
             <div className="titulo-secao">Selecione o horário</div>
-            <Horario />
+            <Horario sessoes={sessoes}/>
         </div>
     );
 }
 
-function Horario() {
+function Horario({ sessoes }) {
 
 
 
     return (
         <>
+        {sessoes.length === 0 ? "" :
+        sessoes.map((sessao) => (
         <div className="horario">
             <div className="data">
-                Quinta-feira - 24/06/2021
+                {sessao.weekday} - {sessao.date}
             </div>
             <div className="horas">
-                
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
+                {sessao.showtimes.map((showtime) => (
+                <Link to={`/assentos/${showtime.id}`} style={{ textDecoration: "none" }}>
+                    <div className="hora">
+                        {showtime.name}
+                    </div>
+                </Link>
+                ))}
             </div>
         </div>
-        <div className="horario">
-            <div className="data">
-                Quinta-feira - 24/06/2021
-            </div>
-            <div className="horas">
-                
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-            </div>
-        </div>
-        <div className="horario">
-            <div className="data">
-                Quinta-feira - 24/06/2021
-            </div>
-            <div className="horas">
-                
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-                <div className="hora">
-                    19:20
-                </div>
-            </div>
-        </div>
+        ))}
         </>
     );
 }
