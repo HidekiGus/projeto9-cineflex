@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 export default function EscolherAssentos() {
 
+    const [ dadosa, setDadosa ] = useState([]);
     const [ assentos, setAssentos ] = useState([]);
 
     const { idSessao } = useParams();
@@ -12,10 +13,12 @@ export default function EscolherAssentos() {
     useEffect(() => {
         const requisicao = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`);
 
-        requisicao.then(resposta => setAssentos(resposta.data.seats));
+        requisicao.then(resposta => {setAssentos(resposta.data.seats)
+                                    setDadosa(resposta.data)});
     }, [])
 
     console.log(assentos)
+    console.log(dadosa)
 
     return (
         <>
@@ -25,6 +28,11 @@ export default function EscolherAssentos() {
             <Assentos>
                 <ListaAssento assentos={assentos}/>
             </Assentos>
+            <div className="barra-baixo">
+                <img src={dadosa.movie.posterURL} />
+                <h1>{dadosa.movie.title}</h1>
+                <h1>{dadosa.day.weekday} - {dadosa.name}</h1>
+            </div>
         </EscolhaAssentos>
         </>
     );
@@ -57,13 +65,13 @@ function Assento({ disponivel, lugar }) {
     const [ selecionado, setSelecionado ] = useState(false);
 
     function checar() {
-        (disponivel === true ? setSelecionado(!selecionado) : alert("Nananinanao"));
+        (disponivel === true ? setSelecionado(!selecionado) : alert("Esse assento não está disponível"));
     }
 
     return (
-        <Assentoxa onClick={checar} disponivel={disponivel} selecionado={selecionado}>
+        <AssentoElemento onClick={checar} disponivel={disponivel} selecionado={selecionado}>
             {lugar}
-        </Assentoxa>
+        </AssentoElemento>
     )
 
 }
@@ -90,7 +98,7 @@ const Assentos = styled.div`
 
 `
 
-const Assentoxa = styled.div`
+const AssentoElemento = styled.div`
     width: 26px;
     height: 26px;
 
