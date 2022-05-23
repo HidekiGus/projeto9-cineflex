@@ -4,6 +4,7 @@ import axios from "axios";
 
 export default function Horarios() {
 
+    const [ dados, setDados ] = useState({});
     const [ sessoes, setSessoes ] = useState([]);
 
     const { idSessoes } = useParams();
@@ -11,16 +12,24 @@ export default function Horarios() {
     useEffect(() => {
         const requisicao = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${idSessoes}/showtimes`);
 
-        requisicao.then(resposta => setSessoes(resposta.data.days));
+        requisicao.then(resposta => {setDados(resposta.data)
+                                    setSessoes(resposta.data.days)});
     }, []);
 
-    console.log(sessoes)
+    console.log(dados.days)
+
+
+    console.log(sessoes);
 
     return (
         <div className="horarios">
             <div className="barra-topo">CINEFLEX</div>
             <div className="titulo-secao">Selecione o horário</div>
-            <Horario sessoes={sessoes}/>
+            <Horario sessoes={sessoes} />
+            <div className="barra-baixo">
+                <img src={dados.posterURL} />
+                <h1>{dados.title}</h1>
+            </div>
         </div>
     );
 }

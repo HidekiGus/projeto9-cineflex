@@ -49,7 +49,7 @@ const ContainerFilmes = styled.div`
 `;
 
 const Foto = styled.img`
-    width: 42%;
+    width: 41vw;
     height: fit-content;
 
     border: 8px solid #FFFFFF;
