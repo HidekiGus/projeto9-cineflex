@@ -16,10 +16,6 @@ export default function Horarios() {
                                     setSessoes(resposta.data.days)});
     }, []);
 
-    console.log(dados.days)
-
-
-    console.log(sessoes);
 
     return (
         <div className="horarios">

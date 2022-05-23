@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 export default function EscolherAssentos() {
 
-    const [ dadosa, setDadosa ] = useState([]);
+    const [ dados, setDados ] = useState([]);
     const [ assentos, setAssentos ] = useState([]);
 
     const { idSessao } = useParams();
@@ -14,11 +14,9 @@ export default function EscolherAssentos() {
         const requisicao = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`);
 
         requisicao.then(resposta => {setAssentos(resposta.data.seats)
-                                    setDadosa(resposta.data)});
+                                    setDados(resposta.data)});
     }, [])
 
-    console.log(assentos)
-    console.log(dadosa)
 
     return (
         <>
@@ -28,11 +26,7 @@ export default function EscolherAssentos() {
             <Assentos>
                 <ListaAssento assentos={assentos}/>
             </Assentos>
-            <div className="barra-baixo">
-                <img src={dadosa.movie.posterURL} />
-                <h1>{dadosa.movie.title}</h1>
-                <h1>{dadosa.day.weekday} - {dadosa.name}</h1>
-            </div>
+            
         </EscolhaAssentos>
         </>
     );
